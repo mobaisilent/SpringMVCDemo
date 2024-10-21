@@ -5,7 +5,6 @@ import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Select;
 import org.springframework.stereotype.Service;
 
-@Mapper
 public interface HelloMapper {
   @Select("select * from student where sid = #{sid}")
   public Student getStudentById(int sid);

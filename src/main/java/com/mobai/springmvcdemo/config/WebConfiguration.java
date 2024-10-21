@@ -1,9 +1,11 @@
 package com.mobai.springmvcdemo.config;
 
 import com.zaxxer.hikari.HikariDataSource;
+import org.apache.ibatis.datasource.pooled.PooledDataSource;
 import org.apache.ibatis.io.Resources;
 import org.apache.ibatis.session.SqlSessionFactory;
 import org.apache.ibatis.session.SqlSessionFactoryBuilder;
+import org.mybatis.spring.SqlSessionFactoryBean;
 import org.mybatis.spring.SqlSessionTemplate;
 import org.mybatis.spring.annotation.MapperScan;
 import org.springframework.context.annotation.Bean;
@@ -69,25 +71,16 @@ public class WebConfiguration implements WebMvcConfigurer {
     //配置静态资源的访问路径
   }
 
-
-
-  //注册SqlSessionTemplate的Bean
-//  @Bean
-//  public SqlSessionTemplate sqlSessionTemplate() throws IOException {
-//    SqlSessionFactory factory = new SqlSessionFactoryBuilder().build(Resources.getResourceAsReader("mybatis-config.xml"));
-//    return new SqlSessionTemplate(factory);
-//  }
-  // 这里是通过xml信息配置数据库，事实上还可以直接通WebConfiguration配置数据库,这里先就算了
-//  这里是使用xml配置文件获取数据源，下面改用使用Hikari
+  @Bean   //单独创建一个Bean，方便之后更换
+  public DataSource dataSource(){
+    return new PooledDataSource("com.mysql.cj.jdbc.Driver",
+            "jdbc:mysql://localhost:3306/SpringMVCDemo", "root", "mobaisilent");
+  }
 
   @Bean
-  public DataSource dataSource() {
-    HikariDataSource dataSource = new HikariDataSource();
-    dataSource.setJdbcUrl("jdbc:mysql://localhost:3306/SpringMVCDemo");
-    dataSource.setDriverClassName("com.mysql.cj.jdbc.Driver");
-    dataSource.setUsername("root");
-    dataSource.setPassword("mobaisilent");
-    return dataSource;
+  public SqlSessionFactoryBean sqlSessionFactoryBean(DataSource dataSource){  //直接参数得到Bean对象
+    SqlSessionFactoryBean bean = new SqlSessionFactoryBean();
+    bean.setDataSource(dataSource);
+    return bean;
   }
-  // 这里是使用Hikari注册的数据源
 }

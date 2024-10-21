@@ -7,6 +7,7 @@ import jakarta.annotation.Resource;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+@Service
 public class StudentServiceImpl implements StudentService {
 
   @Autowired
@@ -14,10 +15,6 @@ public class StudentServiceImpl implements StudentService {
 
   @Override
   public Student getStudentById(int sid) {
-    System.out.println("here is student impl");
-    Student student = helloMapper.getStudentById(sid);
-    System.out.println(student);
-    System.out.println("here after show student");
-    return student;
+    return helloMapper.getStudentById(sid);
   }
 }
