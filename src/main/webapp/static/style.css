@@ -1,0 +1,47 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+.main {
+    position: absolute;
+    width: 400px;
+    height: 400px;
+    /* background: pink; */
+    padding-top: 10px;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+    border-radius: 20px;
+    border: 2px solid #000;
+    overflow: hidden;
+    text-align: center;
+}
+
+.show {
+    width: 100%;
+    height: 88%;
+    display: flex;
+    flex-direction: column;
+}
+
+p {
+    margin-top: 20px;
+    /* 有些时候省事直接margin也是很好的选择 */
+}
+
+.p1 {
+    flex: 1;
+    /* background-color: aqua; */
+}
+
+.p2 {
+    flex: 1;
+    /* background-color: yellow; */
+}
+
+.p3 {
+    flex: 1;
+    /* background-color: rosybrown; */
+}
